@@ -18,7 +18,7 @@ function [o, E, e_prev] = pid_regulator(r, f, E, e_prev, dt, Kp, Ki, Kd)
     if e_prev == 0 then
         o = Kp * e + Ki * E;
     else
-        o = Kp * e + Ki * E + Kd * (e- e_prev) * dt;
+        o = Kp * e + Ki * E + Kd * (e- e_prev) / dt;
     end
     e_prev = e;
     //mprintf('%d, %d, %d', e, E, o);
