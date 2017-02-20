@@ -1,5 +1,6 @@
 // This is a test file for pid
 
+funcprot(0);
 exec('pid_regulator.sci', -1);
 
 ref = 100
@@ -15,7 +16,7 @@ function v = velocity_controller (v, a, dt)
     // v, the current velocity
     // a, the accelarater 
     // dt, the refresh time
-    v = v + a * dt;
+    v = v + a * dt - 2;
 endfunction
 
 i = 1;
@@ -25,7 +26,7 @@ for j = t
     // Kp from 1 to 10
     // Ki from 0 to 2
 
-    [u, E, e_prev] = pid_regulator(100, out(i), E, e_prev, dt, 1, 0, 0);
+    [u, E, e_prev] = pid_regulator(100, out(i), E, e_prev, dt, 1, 1, 0);
     out(i + 1) = velocity_controller(out(i), u);
     i = i + 1;
 end

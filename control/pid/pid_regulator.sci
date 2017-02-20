@@ -1,7 +1,7 @@
 // This file implement a PID regulator
 // o = Kp * e + Ki * E + Kd * (e' - e);
 
-// global variants
+funcprot(0);
 
 function [o, E, e_prev] = pid_regulator(r, f, E, e_prev, dt, Kp, Ki, Kd)
     // r, the reference signal
@@ -9,7 +9,7 @@ function [o, E, e_prev] = pid_regulator(r, f, E, e_prev, dt, Kp, Ki, Kd)
     // o, the output of the PID regulator
     // E, the output of the intergrator
     // e_prev, the previouse error signal
-    // Kp, the proportion coefficient 
+    // Kp, the proportion coefficient
     // Ki, the intergration coefficient
     // Kd, the derivative coefficient
     
@@ -20,7 +20,7 @@ function [o, E, e_prev] = pid_regulator(r, f, E, e_prev, dt, Kp, Ki, Kd)
     else
         o = Kp * e + Ki * E + Kd * (e- e_prev) / dt;
     end
+    //mprintf('%d, %d, %d, %d', e, e_prev, E, o);
     e_prev = e;
-    //mprintf('%d, %d, %d', e, E, o);
     //pause
 endfunction
