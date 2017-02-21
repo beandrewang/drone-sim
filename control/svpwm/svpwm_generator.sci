@@ -319,15 +319,13 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, Vdc, start_time)
     //plot(start_time : 1 / scale : start_time + T / scale, N * n, '*c');
     
     f3 = scf(3);
-    pSa = zeros(1 : 1 + start_time);
-    pSa($) = Sa;
-    plot(pSa, 'r*');
-    pSb = zeros(1 : 1 + start_time);
-    pSb($) = Sb;
-    plot(pSb, 'g*');
-    pSc = zeros(1 : 1 + start_time);
-    pSc($) = Sc;
-    plot(pSc, 'b*');
+    ppSa = ones(1, T / scale) * Sa;
+    plot(start_time : start_time + T / scale - 1, ppSa, 'r*');
+    ppSb = ones(1, T / scale) * Sb;
+    plot(start_time : start_time + T / scale - 1, ppSb, 'g*');
+    ppSc = ones(1, T / scale) * Sc;
+    plot(start_time : start_time + T / scale - 1, ppSc, 'b*');
+    
 endfunction
 
 
