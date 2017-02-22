@@ -405,14 +405,14 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     plot(start_time : 1 / scale : start_time + T / scale, a + 2, 'r');
     plot(start_time : 1 / scale : start_time + T / scale, c - 2, 'b');
     plot(start_time : 1 / scale : start_time + T / scale, b, 'g');
-    xtitle('svpwm curve', 'time', 'value');
+    xtitle('svpwm curve', 'time(s)', 'value');
     legend('a', 'b', 'c');
     
     subplot(312);
     plot(start_time : 1 / scale : start_time + T / scale, A, 'r');
     plot(start_time : 1 / scale : start_time + T / scale, B, 'g');
     plot(start_time : 1 / scale : start_time + T / scale, C, 'b');
-    xtitle('output of inverter', 'time', 'value');
+    xtitle('output of inverter', 'time(s)', 'voltage(V)');
     legend('a', 'b', 'c');
     //plot(start_time : 1 / scale : start_time + T / scale, N * n, '*c');
     
@@ -422,10 +422,10 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     //xtitle('sector & angle');
     //legend('sector (1 - 6)', 'angle (rad/s)');
     
-    x1 = m * cos(theta);
-    y1 = m * sin(theta);
+    x1 = m * Vdc * cos(theta);
+    y1 = m * Vdc * sin(theta);
     plot(x1, y1, 'r*');
-    //xtitle('sector & angle');
+    xtitle('sector & angle', 'alpha(V)', 'beta(V)');
     //legend('sector (1 - 6)', 'angle (rad/s)');
     
     f2 = scf(2);
@@ -436,7 +436,7 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     plot(start_time : 1 / scale : start_time + T / scale, ppSb, 'g');
     ppSc = ones(1, T + 1) * Sc;
     plot(start_time : 1 / scale : start_time + T / scale, ppSc, 'b');
-    xtitle('svpwm equivalent voltage', 'time', 'value');
+    xtitle('svpwm equivalent voltage', 'time(s)', 'voltage(V)');
     legend('a', 'b', 'c');
     
     subplot(312);
@@ -446,7 +446,7 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     plot(start_time : 1 / scale : start_time + T / scale, ppSb, 'g');
     ppSc = ones(1, T + 1) * SC;
     plot(start_time : 1 / scale : start_time + T / scale, ppSc, 'b');
-    xtitle('inverter output - phase voltage', 'time', 'value');
+    xtitle('inverter output - phase voltage', 'time(s)', 'voltage(V)');
     legend('phase a', 'phase b', 'phase c');
     
     subplot(313);
@@ -456,7 +456,7 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     plot(start_time : 1 / scale : start_time + T / scale, ppSb, 'g');
     ppSc = ones(1, T + 1) * SCA;
     plot(start_time : 1 / scale : start_time + T / scale, ppSc, 'b');
-    xtitle('inverter output - line voltage', 'time', 'value');
+    xtitle('inverter output - line voltage', 'time(s)', 'voltage(V)');
     legend('ab', 'bc', 'ca');
 endfunction
 
