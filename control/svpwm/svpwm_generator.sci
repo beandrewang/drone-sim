@@ -126,7 +126,7 @@ function [a, b, c, t0, t1, t2, n, clock_freq, m, theta] = svpwm_period_generator
     end
 endfunction
 
-function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, theta, Vdc, start_time)
+function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     // generate a prioid SVPWM curve
     // t0, the zero voltage perioid
     // t1, the Vx voltage perioid
@@ -417,10 +417,14 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, theta, Vdc, start_time)
     //plot(start_time : 1 / scale : start_time + T / scale, N * n, '*c');
     
     subplot(313);
-    plot(start_time : 1 / scale : start_time + T / scale, ones(1, T + 1) * n, 'c', 'LineWidth', 5);
-    plot(start_time : 1 / scale : start_time + T / scale, ones(1, T + 1) * theta, 'm');
-    xtitle('sector & angle');
-    legend('sector (1 - 6)', 'angle (rad/s)');
+    //plot(start_time : 1 / scale : start_time + T / scale, ones(1, T + 1) * n, 'c', 'LineWidth', 5);
+    //plot(start_time : 1 / scale : start_time + T / scale, ones(1, T + 1) * theta, 'm');
+    //xtitle('sector & angle');
+    //legend('sector (1 - 6)', 'angle (rad/s)');
+    
+    x1 = m * cos(theta);
+    y1 = m * sin(theta);
+    plot(x1, y1, 'r*');
     
     f2 = scf(2);
     subplot(311)
