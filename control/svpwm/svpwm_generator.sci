@@ -40,7 +40,7 @@ function [_alpha, _beta] = reverse_park_transform(d, q, _theta)
     _beta  = d * sin(_theta) + q * cos(_theta);
 endfunction
 
-function [a, b, c, t0, t1, t2, n, clock_freq] = svpwm_period_generator(_alpha, _beta, T, Vdc)
+function [a, b, c, t0, t1, t2, n, clock_freq, m, theta] = svpwm_period_generator(_alpha, _beta, T, Vdc)
     // _alpha, the alpha component in alpha-beta phase
     // _beta, the beta component in alpha-beta phase
     // T, the switching perioid, usually, this is the time of the loop.
@@ -53,6 +53,8 @@ function [a, b, c, t0, t1, t2, n, clock_freq] = svpwm_period_generator(_alpha, _
     // b, the generated b control
     // c, the generated c control
     // clock_freq, the pwm source clock frequency
+    // m, magnitude of the resultant vector
+    // theta, current rotation angles
     
     m = sqrt(_alpha ^ 2 + _beta ^ 2) / (2 / 3 * Vdc); // should < 0.907. under modulation
     theta = atan(_beta, _alpha);
@@ -124,7 +126,7 @@ function [a, b, c, t0, t1, t2, n, clock_freq] = svpwm_period_generator(_alpha, _
     end
 endfunction
 
-function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, Vdc, start_time)
+function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, theta, Vdc, start_time)
     // generate a prioid SVPWM curve
     // t0, the zero voltage perioid
     // t1, the Vx voltage perioid
@@ -399,20 +401,26 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, Vdc, start_time)
         
     //disp(start_time : 1 / scale : start_time + T / scale);
     f1 = scf(1);
-    subplot(211);
+    subplot(311);
     plot(start_time : 1 / scale : start_time + T / scale, a + 2, 'r');
     plot(start_time : 1 / scale : start_time + T / scale, c - 2, 'b');
     plot(start_time : 1 / scale : start_time + T / scale, b, 'g');
     xtitle('svpwm curve', 'time', 'value');
     legend('a', 'b', 'c');
     
-    subplot(212);
+    subplot(312);
     plot(start_time : 1 / scale : start_time + T / scale, A, 'r');
     plot(start_time : 1 / scale : start_time + T / scale, B, 'g');
     plot(start_time : 1 / scale : start_time + T / scale, C, 'b');
     xtitle('source of inverter', 'time', 'value');
     legend('a', 'b', 'c');
     //plot(start_time : 1 / scale : start_time + T / scale, N * n, '*c');
+    
+    subplot(313);
+    plot(start_time : 1 / scale : start_time + T / scale, ones(1, T + 1) * n, 'c', 'LineWidth', 5);
+    plot(start_time : 1 / scale : start_time + T / scale, ones(1, T + 1) * theta, 'm');
+    xtitle('sector & angle');
+    legend('sector (1 - 6)', 'angle (rad/s)');
     
     f2 = scf(2);
     subplot(311)
