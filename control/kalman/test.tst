@@ -33,10 +33,10 @@ for t = 0 : dt : 10
     Position = [Position; X(1)];
     Position_est = [Position_est, y];
     vel = [vel; X(2)];
-    
-    plot(0 : dt : t, Position, '-r.');
-    plot(0 : dt : t, Position_est, '-k.');
 end
+
+plot(0 : dt : t, Position, '-r.');
+plot(0 : dt : t, Position_est, '-k.');
 
 Position_out = [];
 Vel_out = [];
