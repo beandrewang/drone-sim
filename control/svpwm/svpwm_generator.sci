@@ -410,8 +410,8 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     
     subplot(312);
     plot(start_time : 1 / scale : start_time + T / scale, A, 'r');
-    plot(start_time : 1 / scale : start_time + T / scale, B, 'g');
-    plot(start_time : 1 / scale : start_time + T / scale, C, 'b');
+    //plot(start_time : 1 / scale : start_time + T / scale, B, 'g');
+    //plot(start_time : 1 / scale : start_time + T / scale, C, 'b');
     xtitle('output of inverter', 'time(s)', 'voltage(V)');
     legend('a', 'b', 'c');
     //plot(start_time : 1 / scale : start_time + T / scale, N * n, '*c');
@@ -422,8 +422,8 @@ function [Sa, Sb, Sc] = plot_svpwm(t0, t1, t2, n, m, theta, Vdc, start_time)
     //xtitle('sector & angle');
     //legend('sector (1 - 6)', 'angle (rad/s)');
     
-    x1 = m * Vdc * cos(theta);
-    y1 = m * Vdc * sin(theta);
+    x1 = m * 2 / 3 * Vdc * cos(theta);
+    y1 = m * 2 / 3 * Vdc * sin(theta);
     plot(x1, y1, 'r*');
     xtitle('sector & angle', 'alpha(V)', 'beta(V)');
     //legend('sector (1 - 6)', 'angle (rad/s)');
