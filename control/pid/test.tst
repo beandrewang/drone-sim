@@ -20,14 +20,16 @@ function v = velocity_controller (v, a, dt)
 endfunction
 
 i = 1;
-
+kp = 1;
+ki = 0.1;
+kd = 0;
+p = pid_regulator_init(ref, 0, dt, kp, ki, kd);
 for j = t
     // try to change the Kp and Ki, 
     // Kp from 1 to 10
     // Ki from 0 to 2
-
-    [u, E, e_prev] = pid_regulator(100, out(i), E, e_prev, dt, 1, 1, 0);
-    out(i + 1) = velocity_controller(out(i), u);
+    p = pid_regulator_update(p, out(i));
+    out(i + 1) = velocity_controller(out(i), p.output, dt);
     i = i + 1;
 end
 
